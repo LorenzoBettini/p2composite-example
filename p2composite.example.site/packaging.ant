@@ -45,7 +45,7 @@
 		<property name="child.repository.directory" value="${composite.repository.directory}/${child.repository}/" />
 	</target>
 
-	<target name="composite.add" depends="compute.child.repository.data">
+	<target name="p2.composite.add" depends="compute.child.repository.data">
 		<property name="source.repository" location="${project.build.directory}/repository"/>
 
 		<echo message=" " />
