@@ -81,7 +81,6 @@
 		<echo message="Child repository directory : ${child.repository.directory}" />
 		<echo message="Adding child repository    : ${child.repository}" />
 
-		<!--
 		<p2.composite.repository>
 			<repository
 				compressed="false"
@@ -96,7 +95,6 @@
 metadata.repository.factory.order=compositeContent.xml,\!
 artifact.repository.factory.order=compositeArtifacts.xml,\!
 </echo>
-		-->
 
 	</target>
 

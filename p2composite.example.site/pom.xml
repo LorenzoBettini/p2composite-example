@@ -14,6 +14,7 @@
 
 	<build>
 		<plugins>
+			<!-- 
 			<plugin>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<version>${maven-antrun-plugin.version}</version>
@@ -34,6 +35,58 @@
 						</configuration>
 						<goals>
 							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			 -->
+
+			<plugin>
+				<groupId>org.eclipse.tycho.extras</groupId>
+				<artifactId>tycho-eclipserun-plugin</artifactId>
+				<version>${tycho-version}</version>
+				<configuration>
+					<appArgLine>-application org.eclipse.ant.core.antRunner -buildfile packaging.ant composite.add -Dproject.build.directory=${project.build.directory} -DunqualifiedVersion=${unqualifiedVersion} -DbuildQualifier=${buildQualifier}</appArgLine>
+					<repositories>
+						<repository>
+							<id>kepler</id>
+							<layout>p2</layout>
+							<url>http://download.eclipse.org/releases/kepler</url>
+						</repository>
+					</repositories>
+					<dependencies>
+						<dependency>
+							<artifactId>org.eclipse.ant.core</artifactId>
+							<type>eclipse-plugin</type>
+						</dependency>
+						<dependency>
+							<artifactId>org.apache.ant</artifactId>
+							<type>eclipse-plugin</type>
+						</dependency>
+						<dependency>
+							<artifactId>org.eclipse.equinox.p2.repository.tools</artifactId>
+							<type>eclipse-plugin</type>
+						</dependency>
+						<dependency>
+                            <artifactId>org.eclipse.equinox.p2.core.feature</artifactId>
+                            <type>eclipse-feature</type>
+                        </dependency>
+                        <dependency>
+                            <artifactId>org.eclipse.equinox.p2.extras.feature</artifactId>
+                            <type>eclipse-feature</type>
+                        </dependency>
+                        <dependency>
+                            <artifactId>org.eclipse.equinox.ds</artifactId>
+                            <type>eclipse-plugin</type>
+                        </dependency>
+					</dependencies>
+				</configuration>
+				<executions>
+					<execution>
+						<id>add-p2-composite-repository</id>
+						<phase>package</phase>
+						<goals>
+							<goal>eclipse-run</goal>
 						</goals>
 					</execution>
 				</executions>
