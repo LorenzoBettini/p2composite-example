@@ -9,6 +9,7 @@
 	<modules>
 		<module>../p2composite.example.plugin</module>
 		<module>../p2composite.example.feature</module>
+		<module>../p2composite.example.site</module>
 	</modules>
 
 	<properties>
