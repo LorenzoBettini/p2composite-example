@@ -20,13 +20,16 @@
 				<executions>
 					<execution>
 						<id>show-current-version</id>
-						<phase>validate</phase>
+						<phase>package</phase>
 						<configuration>
 							<tasks>
 								<echo message="" />
 								<echo message="Repository path: ${project.build.directory}/repository" />
 								<echo message="Built version: ${unqualifiedVersion}.${buildQualifier}" />
 								<echo message="" />
+
+								<ant antfile="${basedir}/packaging.ant" target="composite.add">
+								</ant>
 							</tasks>
 						</configuration>
 						<goals>

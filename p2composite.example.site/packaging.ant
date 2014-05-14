@@ -1,8 +1,6 @@
 <?xml version="1.0"?>
 <project name="project">
 
-	<import file="${buckminster.pdetasks}" />
-
 	<!-- Given a version x.y.z returns x.y -->
 	<macrodef name="extractFeatureVersionMajorMinor">
 		<attribute name="file" />
@@ -47,9 +45,11 @@
 	<target name="clear.directory" depends="do.clear.directory,dont.clear.directory" />
 
 	<target name="compute.child.repository.data">
-		<extractFeatureVersion file="${sp:manifest}" property="feature.version" />
-		<extractFeatureVersionMajorMinor file="${sp:manifest}" property="feature.major.minor.version" />
-		<extractFeatureLabel file="${sp:manifest}" property="feature.label" />
+		<property name="feature.xml" location="feature.xml"/>
+		<property name="feature.version" value="${unqualifiedVersion}.${buildQualifier}" />
+
+		<extractFeatureVersionMajorMinor file="${feature.xml}" property="feature.major.minor.version" />
+		<extractFeatureLabel file="${feature.xml}" property="feature.label" />
 
 		<property name="software.download.area" location="${user.home}/p2.repositories" />
 		<property name="updates.dir" value="updates" />
@@ -62,20 +62,26 @@
 	</target>
 
 	<target name="composite.add" depends="compute.child.repository.data">
+		<property name="source.repository" location="${project.build.directory}/repository"/>
+
 		<echo message=" " />
+
+		<echo message="Source repository path: ${source.repository}" />
+
 		<echo message="Copying to ${child.repository.directory}..." />
 
 		<mkdir dir="${child.repository.directory}"/>
-		<buckminster.copy todir="${child.repository.directory}" overwrite="true">
-				<buckminster.filesetgroup value="${fs:action.requirements}"/>
-		</buckminster.copy>
-		
+		<copy todir="${child.repository.directory}" overwrite="true">
+			<fileset dir="${source.repository}" />
+		</copy>
+
 		<echo message=" " />
 		<echo message="Composite repository       : ${composite.repository.directory}" />
 		<echo message="Composite name             : ${site.composite.name}" />
 		<echo message="Child repository directory : ${child.repository.directory}" />
 		<echo message="Adding child repository    : ${child.repository}" />
 
+		<!--
 		<p2.composite.repository>
 			<repository
 				compressed="false"
@@ -90,6 +96,7 @@
 metadata.repository.factory.order=compositeContent.xml,\!
 artifact.repository.factory.order=compositeArtifacts.xml,\!
 </echo>
+		-->
 
 	</target>
 
