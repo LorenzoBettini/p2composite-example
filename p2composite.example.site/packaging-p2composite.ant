@@ -39,8 +39,11 @@
 		<property name="updates.dir" value="updates" />
 
 		<property name="site.composite.name" value="${feature.label} ${feature.major.minor.version}" />
+		<property name="main.site.composite.name" value="${feature.label} All Versions" />
 
-		<property name="composite.repository.directory" location="${software.download.area}/${updates.dir}/${feature.major.minor.version}/" />
+		<property name="main.composite.repository.directory" location="${software.download.area}/${updates.dir}" />
+
+		<property name="composite.repository.directory" value="${main.composite.repository.directory}/${feature.major.minor.version}" />
 		<property name="child.repository" value="${feature.version}" />
 		<property name="child.repository.directory" value="${composite.repository.directory}/${child.repository}/" />
 	</target>
@@ -59,27 +62,51 @@
 			<fileset dir="${source.repository}" />
 		</copy>
 
-		<echo message=" " />
-		<echo message="Composite repository       : ${composite.repository.directory}" />
-		<echo message="Composite name             : ${site.composite.name}" />
-		<echo message="Child repository directory : ${child.repository.directory}" />
-		<echo message="Adding child repository    : ${child.repository}" />
-
-		<p2.composite.repository>
-			<repository
-				compressed="false"
-				location="${composite.repository.directory}" 
-				name="${site.composite.name}" />
-			<add>
-				<repository location="${child.repository}" />
-			</add>
-		</p2.composite.repository>
+		<add.composite.repository.internal
+			composite.repository.location="${composite.repository.directory}"
+			composite.repository.name="${site.composite.name}"
+			composite.repository.child="${child.repository}"
+		/>
 		
-<echo file="${composite.repository.directory}/p2.index">version=1
+		<add.composite.repository.internal
+			composite.repository.location="${main.composite.repository.directory}"
+			composite.repository.name="${main.site.composite.name}"
+			composite.repository.child="${feature.major.minor.version}"
+		/>
+
+	</target>
+	
+	<!-- = = = = = = = = = = = = = = = = =
+          macrodef: add.composite.repository.internal          
+         = = = = = = = = = = = = = = = = = -->
+    <macrodef name="add.composite.repository.internal">
+        <attribute name="composite.repository.location" />
+    	<attribute name="composite.repository.name" />
+    	<attribute name="composite.repository.child" />
+        <sequential>
+
+    		<echo message=" " />
+    		<echo message="Composite repository       : @{composite.repository.location}" />
+    		<echo message="Composite name             : @{composite.repository.name}" />
+    		<echo message="Adding child repository    : @{composite.repository.child}" />
+
+    		<p2.composite.repository>
+    			<repository
+    				compressed="false"
+    				location="@{composite.repository.location}" 
+    				name="@{composite.repository.name}" />
+    			<add>
+    				<repository location="@{composite.repository.child}" />
+    			</add>
+    		</p2.composite.repository>
+
+		<echo file="@{composite.repository.location}/p2.index">version=1
 metadata.repository.factory.order=compositeContent.xml,\!
 artifact.repository.factory.order=compositeArtifacts.xml,\!
 </echo>
+            
+        </sequential>
+    </macrodef>
 
-	</target>
 
 </project>
