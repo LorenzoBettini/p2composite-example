@@ -33,13 +33,13 @@
 		<property name="feature.version" value="${unqualifiedVersion}.${buildQualifier}" />
 
 		<extractFeatureVersionMajorMinor file="${feature.xml}" property="feature.major.minor.version" />
-		<extractFeatureLabel file="${feature.xml}" property="feature.label" />
+		<extractFeatureLabel file="${feature.xml}" property="site.label" />
 
 		<property name="software.download.area" location="${user.home}/p2.repositories" />
 		<property name="updates.dir" value="updates" />
 
-		<property name="site.composite.name" value="${feature.label} ${feature.major.minor.version}" />
-		<property name="main.site.composite.name" value="${feature.label} All Versions" />
+		<property name="site.composite.name" value="${site.label} ${feature.major.minor.version}" />
+		<property name="main.site.composite.name" value="${site.label} All Versions" />
 
 		<property name="main.composite.repository.directory" location="${software.download.area}/${updates.dir}" />
 
