@@ -17,8 +17,7 @@
 		<tycho-extras-version>0.19.0</tycho-extras-version>
 		<maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<memoryArgs>-Xms256M -Xmx1024M -XX:PermSize=256M -XX:MaxPermSize=256M
-			-XX:+HeapDumpOnOutOfMemoryError</memoryArgs>
+		<memoryArgs>-Xms256M -Xmx1024M -XX:PermSize=256M -XX:MaxPermSize=256M -XX:+HeapDumpOnOutOfMemoryError</memoryArgs>
 		<platform-version>[3.9,4.0)</platform-version>
 	</properties>
 
