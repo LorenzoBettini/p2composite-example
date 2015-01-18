@@ -11,6 +11,10 @@
 
 	<artifactId>p2composite.example.site</artifactId>
 	<packaging>eclipse-repository</packaging>
+	
+	<properties>
+		<p2.repository.dest>${project.basedir}/../target/repository</p2.repository.dest>
+	</properties>
 
 	<build>
 		<plugins>
@@ -40,6 +44,41 @@
 				</executions>
 			</plugin>
 			 -->
+
+			<plugin>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<version>${maven-antrun-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>copy-to-root-target</id>
+						<phase>package</phase>
+						<configuration>
+							<target>
+								<echo message="" />
+								<echo message="Repository path: ${project.build.directory}/repository" />
+								<echo message="Built version: ${unqualifiedVersion}.${buildQualifier}" />
+								<echo message="" />
+
+								<delete includeemptydirs="false" failonerror="false">
+									<fileset
+										dir="${p2.repository.dest}">
+										<include name="**" />
+									</fileset>
+								</delete>
+								<copy includeemptydirs="false"
+									todir="${p2.repository.dest}">
+									<fileset dir="target/repository">
+										<include name="**" />
+									</fileset>
+								</copy>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 
 			<plugin>
 				<groupId>org.eclipse.tycho.extras</groupId>
