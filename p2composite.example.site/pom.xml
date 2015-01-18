@@ -85,6 +85,7 @@
 				<artifactId>tycho-eclipserun-plugin</artifactId>
 				<version>${tycho-version}</version>
 				<configuration>
+				    <!-- IMPORTANT: DO NOT split the arg line -->
 					<appArgLine>-application org.eclipse.ant.core.antRunner -buildfile packaging-p2composite.ant p2.composite.add -Dsite.label="Composite Site Example" -Dproject.build.directory=${project.build.directory} -DunqualifiedVersion=${unqualifiedVersion} -DbuildQualifier=${buildQualifier}</appArgLine>
 					<repositories>
 						<repository>
