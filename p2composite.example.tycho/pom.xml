@@ -13,19 +13,19 @@
 	</modules>
 
 	<properties>
-		<tycho-version>0.22.0</tycho-version>
-		<tycho-extras-version>0.22.0</tycho-extras-version>
-		<maven-antrun-plugin.version>1.7</maven-antrun-plugin.version>
+		<tycho-version>1.4.0</tycho-version>
+		<tycho-extras-version>1.4.0</tycho-extras-version>
+		<maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<memoryArgs>-Xms256M -Xmx1024M -XX:PermSize=256M -XX:MaxPermSize=256M -XX:+HeapDumpOnOutOfMemoryError</memoryArgs>
-		<platform-version>[3.9,4.0)</platform-version>
+		<platform-version>[3.9,4.12)</platform-version>
 	</properties>
 
 	<repositories>
 		<repository>
-			<id>luna</id>
+			<id>2019-06</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/luna</url>
+			<url>http://download.eclipse.org/releases/2019-06</url>
 		</repository>
 	</repositories>
 
